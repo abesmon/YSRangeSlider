@@ -269,6 +269,8 @@ import UIKit
         } else if rightThumbSelected {
             maximumSelectedValue = (selectedValue - gapBetweenThumbs > minimumSelectedValue) ? selectedValue : minimumSelectedValue + gapBetweenThumbs
         }
+
+        delegate?.rangeSliderDidChangeWithUI(self, minimumSelectedValue: minimumSelectedValue, maximumSelectedValue: maximumSelectedValue)
         
         return true
     }
@@ -290,8 +292,8 @@ import UIKit
         CATransaction.setDisableActions(true)
         updateThumbsPosition()
         CATransaction.commit()
-        
-        delegate?.rangeSliderDidChange(self, minimumSelectedValue: minimumSelectedValue, maximumSelectedValue: maximumSelectedValue)
+
+        delegate?.rangeSliderDidChange?(self, minimumSelectedValue: minimumSelectedValue, maximumSelectedValue: maximumSelectedValue)
     }
     
     private func updateThumbsPosition() {
@@ -349,5 +351,7 @@ public protocol YSRangeSliderDelegate: class {
         - minimumSelectedValue: The minimum selected value
         - maximumSelectedValue: The maximum selected value
     */
-    func rangeSliderDidChange(_ rangeSlider: YSRangeSlider, minimumSelectedValue: CGFloat, maximumSelectedValue: CGFloat)
+    func rangeSliderDidChangeWithUI(_ rangeSlider: YSRangeSlider, minimumSelectedValue: CGFloat, maximumSelectedValue: CGFloat)
+
+    optional func rangeSliderDidChange(_ rangeSlider: YSRangeSlider, minimumSelectedValue: CGFloat, maximumSelectedValue: CGFloat)
 }
