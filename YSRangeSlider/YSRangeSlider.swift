@@ -156,6 +156,8 @@ import UIKit
             rightThumbLayer.frame.size = CGSize(width: thumbsSize, height: thumbsSize)
         }
     }
+
+    @IBInspectable open var percentGapBetweenThumbs: CGFloat = 0.05
     
     /// The delegate of `YSRangeSlider`
     open weak var delegate: YSRangeSliderDelegate?
@@ -170,6 +172,10 @@ import UIKit
     private let thumbTouchAreaExpansion: CGFloat = -90.0
     private var leftThumbSelected = false
     private var rightThumbSelected = false
+
+    private var gapBetweenThumbs: CGFloat {
+        return (maximumValue - minimumValue) * percentGapBetweenThumbs
+    }
     
     // MARK: - Init
     
@@ -259,9 +265,9 @@ import UIKit
         let selectedValue = percentage * (maximumValue - minimumValue) + minimumValue
         
         if leftThumbSelected {
-            minimumSelectedValue = (selectedValue < maximumSelectedValue) ? selectedValue : maximumSelectedValue
+            minimumSelectedValue = (selectedValue + gapBetweenThumbs < maximumSelectedValue) ? selectedValue : maximumSelectedValue - gapBetweenThumbs
         } else if rightThumbSelected {
-            maximumSelectedValue = (selectedValue > minimumSelectedValue) ? selectedValue : minimumSelectedValue
+            maximumSelectedValue = (selectedValue - gapBetweenThumbs > minimumSelectedValue) ? selectedValue : minimumSelectedValue + gapBetweenThumbs
         }
         
         return true
