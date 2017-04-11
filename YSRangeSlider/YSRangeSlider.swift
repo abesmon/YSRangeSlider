@@ -343,7 +343,7 @@ extension CGRect {
 
 // MARK: - YSRangeSliderDelegate
 
-public protocol YSRangeSliderDelegate: class {
+@objc public protocol YSRangeSliderDelegate: class {
     /** Delegate function that is called every time minimum or maximum selected value is changed
      
     - Parameters:
@@ -353,5 +353,5 @@ public protocol YSRangeSliderDelegate: class {
     */
     func rangeSliderDidChangeWithUI(_ rangeSlider: YSRangeSlider, minimumSelectedValue: CGFloat, maximumSelectedValue: CGFloat)
 
-    optional func rangeSliderDidChange(_ rangeSlider: YSRangeSlider, minimumSelectedValue: CGFloat, maximumSelectedValue: CGFloat)
+    @objc optional func rangeSliderDidChange(_ rangeSlider: YSRangeSlider, minimumSelectedValue: CGFloat, maximumSelectedValue: CGFloat)
 }
