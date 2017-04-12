@@ -228,6 +228,7 @@ import UIKit
 
     private func updateOneSide() {
         leftThumbLayer.isHidden = isOneSide
+
     }
     
     override open func layoutSubviews() {
@@ -273,7 +274,9 @@ import UIKit
         let location = touch.location(in: self)
         let percentage = (location.x - sliderLineLayer.frame.minX - thumbsSize / 2) / (sliderLineLayer.frame.maxX - sliderLineLayer.frame.minX)
         let selectedValue = percentage * (maximumValue - minimumValue) + minimumValue
-        
+
+        let gapBetweenThumbs = isOneSide ? self.gapBetweenThumbs : 0
+
         if leftThumbSelected {
             minimumSelectedValue = (selectedValue + gapBetweenThumbs < maximumSelectedValue) ? selectedValue : maximumSelectedValue - gapBetweenThumbs
         } else if rightThumbSelected {
