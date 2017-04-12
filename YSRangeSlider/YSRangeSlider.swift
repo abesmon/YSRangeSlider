@@ -158,6 +158,10 @@ import UIKit
     }
 
     @IBInspectable open var percentGapBetweenThumbs: CGFloat = 0.05
+
+    @IBInspectable open var isOneSide: Bool = false {
+        didSet { updateOneSide() }
+    }
     
     /// The delegate of `YSRangeSlider`
     open weak var delegate: YSRangeSliderDelegate?
@@ -216,8 +220,14 @@ import UIKit
         rightThumbLayer.shadowOpacity = rightThumbShadowOpacity
         rightThumbLayer.shadowRadius = rightThumbShadowRadius
         layer.addSublayer(rightThumbLayer)
+
+        updateOneSide()
         
         updateComponentsPosition()
+    }
+
+    private func updateOneSide() {
+        leftThumbLayer.isHidden = isOneSide
     }
     
     override open func layoutSubviews() {
@@ -242,10 +252,10 @@ import UIKit
             let distanceFromLeftThumb = distanceBetween(pressGestureLocation, leftThumbLayer.frame.center)
             let distanceFromRightThumb = distanceBetween(pressGestureLocation, rightThumbLayer.frame.center)
             
-            if distanceFromLeftThumb < distanceFromRightThumb {
+            if distanceFromLeftThumb < distanceFromRightThumb && !isOneSide {
                 leftThumbSelected = true
                 animate(thumbLayer: leftThumbLayer, isSelected: true)
-            } else if maximumSelectedValue == maximumValue && leftThumbLayer.frame.center.x == rightThumbLayer.frame.center.x {
+            } else if maximumSelectedValue == maximumValue && leftThumbLayer.frame.center.x == rightThumbLayer.frame.center.x && !isOneSide {
                 leftThumbSelected = true
                 animate(thumbLayer: leftThumbLayer, isSelected: true)
             } else {

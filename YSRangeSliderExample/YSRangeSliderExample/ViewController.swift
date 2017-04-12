@@ -29,7 +29,7 @@ class ViewController: UIViewController {
 // MARK: - YSRangeSliderDelegate
 
 extension ViewController: YSRangeSliderDelegate {
-    func rangeSliderDidChange(_ rangeSlider: YSRangeSlider, minimumSelectedValue: CGFloat, maximumSelectedValue: CGFloat) {
+    func rangeSliderDidChangeWithUI(_ rangeSlider: YSRangeSlider, minimumSelectedValue: CGFloat, maximumSelectedValue: CGFloat) {
         label.text = "From \(minimumSelectedValue) to \(maximumSelectedValue)"
     }
 }
