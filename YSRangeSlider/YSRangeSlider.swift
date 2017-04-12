@@ -275,7 +275,7 @@ import UIKit
         let percentage = (location.x - sliderLineLayer.frame.minX - thumbsSize / 2) / (sliderLineLayer.frame.maxX - sliderLineLayer.frame.minX)
         let selectedValue = percentage * (maximumValue - minimumValue) + minimumValue
 
-        let gapBetweenThumbs = isOneSide ? self.gapBetweenThumbs : 0
+        let gapBetweenThumbs = isOneSide ? 0 : self.gapBetweenThumbs
 
         if leftThumbSelected {
             minimumSelectedValue = (selectedValue + gapBetweenThumbs < maximumSelectedValue) ? selectedValue : maximumSelectedValue - gapBetweenThumbs
