@@ -231,6 +231,8 @@ import UIKit
     }
 
     private func updateOneSide() {
+        leftThumbLayer.isHidden = false
+        rightThumbLayer.isHidden = false
         if isRightHand {
             leftThumbLayer.isHidden = isOneSide
         } else {
