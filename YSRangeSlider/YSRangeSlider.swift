@@ -162,6 +162,10 @@ import UIKit
     @IBInspectable open var isOneSide: Bool = false {
         didSet { updateOneSide() }
     }
+
+    @IBInspectable open var isRightHand: Bool = true {
+        didSet { updateOneSide() }
+    }
     
     /// The delegate of `YSRangeSlider`
     open weak var delegate: YSRangeSliderDelegate?
@@ -227,8 +231,11 @@ import UIKit
     }
 
     private func updateOneSide() {
-        leftThumbLayer.isHidden = isOneSide
-
+        if isRightHand {
+            leftThumbLayer.isHidden = isOneSide
+        } else {
+            rightThumbLayer.isHidden = isOneSide
+        }
     }
     
     override open func layoutSubviews() {
@@ -259,9 +266,12 @@ import UIKit
             } else if maximumSelectedValue == maximumValue && leftThumbLayer.frame.center.x == rightThumbLayer.frame.center.x && !isOneSide {
                 leftThumbSelected = true
                 animate(thumbLayer: leftThumbLayer, isSelected: true)
-            } else {
+            } else if isRightHand {
                 rightThumbSelected = true
                 animate(thumbLayer: rightThumbLayer, isSelected: true)
+            } else {
+                leftThumbSelected = true
+                animate(thumbLayer: leftThumbLayer, isSelected: true)
             }
             
             return true
